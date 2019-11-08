@@ -55,7 +55,7 @@ class Color_roulette
         "Invalid selection, select Y/N"
         ritplayagain
        end
-
+ 
     end 
 end 
 Color_roulette.new 
