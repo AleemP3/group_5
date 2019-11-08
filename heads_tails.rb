@@ -24,6 +24,7 @@ class Heads_tails
   end 
 
   def betting
+    
   
   end
 
