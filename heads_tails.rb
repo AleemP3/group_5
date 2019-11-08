@@ -1,5 +1,5 @@
 require_relative 'color_roulette'
-require_relative 'heads_tails'
+require_relative 'main'
 require_relative 'player'
 require_relative 'wallet'
 
