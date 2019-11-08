@@ -6,7 +6,7 @@ require_relative 'wallet'
 class Heads_tails
   def initialize 
     puts "Welcome to Heads and Tails!"
-    
+     
     @coin = ["heads", "tails"
       ]
     
