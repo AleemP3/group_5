@@ -5,6 +5,7 @@ require_relative 'wallet'
 
 class Casino 
   def initialize 
+    
     puts "Welcome to our Casino"
   end 
 
