@@ -14,8 +14,8 @@ class Color_roulette
       puts "Welcome to Roulette! You can bet on red or black. Please make a selection."
       puts "1) Red"
       puts "2) Black"
-      color = gets.to_i
-      case ritbet
+      ritcolor = gets.to_i
+      case ritcolor
       when 1
         @colorbets.push(color)
       when 2
@@ -25,6 +25,8 @@ class Color_roulette
         puts "Invalid selection"
         ritmenu
       end
+      puts "Place your bet!"
+      
     end 
 
     def ritrand
