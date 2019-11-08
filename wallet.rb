@@ -1,7 +1,7 @@
 require_relative 'color_roulette'
 require_relative 'heads_tails'
 require_relative 'player'
-require_relative 'wallet'
+require_relative 'main'
 
 class Wallet 
   def initialize
@@ -12,7 +12,7 @@ class Wallet
   end 
 
   def add
-
+    @wallet
   end 
 
   def minus 

@@ -1,6 +1,6 @@
 require_relative 'color_roulette'
 require_relative 'heads_tails'
-require_relative 'player'
+require_relative 'main'
 require_relative 'wallet'
 
 class Player 
@@ -9,5 +9,6 @@ class Player
     puts "Enter your name: "
     player1 = gets.strip 
     puts "Hello #{player1}"
+    
   end 
 end 
