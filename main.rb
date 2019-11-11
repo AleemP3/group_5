@@ -1,17 +1,36 @@
+require "pry"
 require_relative 'color_roulette'
-require_relative 'heads_tails'
 require_relative 'player'
-require_relative 'wallet'
-
+require_relative 'heads_tails'
 require "colorize"
 
 def separator
   puts
 end
 
-class Casino 
+class Wallet 
+  attr_accessor :wallet, :money, :player 
   def initialize
-    @player_wallet = Wallet.new 
+    puts "Enter amount to start" 
+    @money = gets.to_i 
+    @wallet = wallet 
+    @wallet == @money 
+    @player = player 
+  end
+
+  def add(bet)
+    self.money += bet 
+  end 
+
+  def minus(bet) 
+    self.money -= bet
+  end
+end 
+
+class Casino 
+  attr_accessor :player 
+  def initialize(player)
+    @player = player 
     separator
     puts "
     __       __)                                               )   ___                       /  
@@ -21,40 +40,49 @@ class Casino
       /  |                                                    (______)                          
                                                                                                 
    ".colorize(:light_yellow)
-    separator
+    separator 
+  end 
+
+  def start_game
+    puts "Please enter your name: "
+    new_user = gets.strip
+    @player = Player.new(new_user) 
+    puts "Welcome new player #{new_user}"
     main_menu
   end 
 
   def main_menu
     puts "-- Casino Menu --".colorize(:light_blue)
-    puts "1) Enter Your Information"
-    puts "2) Play Roulette"
-    puts "3) Play Heads or Tails"
-    puts "4) View Wallet"
-    puts "5) Exit Casino"
+    #puts "1) Enter Your Information"
+    puts "1) Play Roulette"
+    puts "2) Play Heads or Tails"
+    puts "3) View Wallet"
+    puts "4) Exit Casino"
 
     choice = gets.to_i
 
     case choice
-    when 1 
-      player.new
-    when 2   
-      color_roulette
-    when 3
-      heads_tails
-    when 4
-      wallet
+    # when 1 
+    #   main_menu
+    when 1   
+      ColorRoulette.new(@player)
+    when 2
+      HeadsTails.new(@player)  
+    when 3 
+      @player.view_wallet 
+      main_menu
     when
-      5
+      4
       puts "Thank You for Playing!"
       separator
       puts "
-      .------.
-      |K.--. |
-      | :/\: |
-      | (__) |
-      | '--'K|
-      `------' ".colorize(:red)
+      .------..------..------..------..------..------..------.
+      |G.--. ||O.--. ||O.--. ||D.--. ||B.--. ||Y.--. ||E.--. |
+      | ://: || :(): || :(): || ://: || :(): || ://: || (//) |
+      | ://: || :(): || :(): || (__) || ()() || (//) || ://: |
+      | '--'G|| '--'O|| '--'O|| '--'D|| '--'B|| '--'Y|| '--'E|
+      `------'`------'`------'`------'`------'`------'`------'
+      ".colorize(:red)
       exit(0)
     else
       separator
@@ -63,6 +91,8 @@ class Casino
       main_menu
     end
   end
-end
+end 
 
-Casino.new
+menu = Casino.new(@player) 
+menu.start_game 
+

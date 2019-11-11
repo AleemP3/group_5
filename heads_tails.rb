@@ -1,68 +1,69 @@
-require_relative 'color_roulette'
-require_relative 'main'
-require_relative 'player'
-require_relative 'wallet'
+class HeadsTails
+  attr_accessor :player 
 
-class Heads_tails
-  def initialize 
-    puts "Welcome to Heads and Tails!"
-     
-    @coin = ["heads", "tails"
-      ]
-    
+  def initialize(player)
+    @player = player 
     heads_tails 
   end 
 
-def heads_tails
-  puts "select heads or tails"
-  users_guess = gets.strip 
-  case users_guess 
-  when "heads"
-  if @coin.sample == users_guess
-    puts "YOU WIN!"
-    # add method from wallet
-  else 
-    puts "you lose..."
-    # lose method from wallet
-  end 
-  play_again
-  when "tails" 
-  if @coin.sample == users_guess
-    puts "YOU WIN!"
-    # add method from wallet
-  else 
-    puts "you lose..."
-    # lose method from wallet
-  end 
-  play_again
-  else 
-  puts "invalid option"
-  end 
-  
-end
+  def heads_tails
+    puts "Welcome to Heads and Tails!"
+      @coin = ["heads", "tails"
+      ]
+    puts "select heads or tails"
+    users_guess = gets.strip 
+    betting 
+      case users_guess 
+        when "heads"
+          if @coin.sample == users_guess
+          puts "YOU WIN!"
+          @player.win(@bet)
+          else 
+          puts "you lose..."
+          @player.lose(@bet)
+          end 
+        play_again
+        when "tails" 
+          if @coin.sample == users_guess
+          puts "YOU WIN!"
+          @player.win(@bet)
+          else 
+          puts "you lose..."
+          @player.lose(@bet)
+          end 
+        play_again
+        else 
+        puts "invalid option"
+      end 
+  end
 
 def play_again
   puts "would you like to play again? (y/n)"
   selection = gets.strip 
   case selection 
   when "y"
-    heads_tails 
+    heads_tails
   when "n"
-    exit
+    restart = Casino.new(@player) 
+    restart.main_menu 
   else 
     puts "invalid option"
     play_again
+    end 
   end 
-end 
 
+  def betting
+    puts "You currently have #{@player.wallet.money}"
+    puts "How much would you like to bet?"
+    @bet = gets.to_i 
+    if @bet > @player.wallet.money   
+      puts "YOU BROKE BRO TRY AGAIN"
+      betting 
+    end 
+    return @player
+    return @bet 
+  end 
 
-  # def betting
-  #   puts "Please enter betting amount"
-  #   user_amount = gets.to_i 
-  #   if user_amount < @bets
-  # end
-  # end
 end
 
 
-Heads_tails.new

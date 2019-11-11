@@ -1,34 +1,34 @@
-require "pry"
-# require_relative 'main'
-# # require_relative 'heads_tails'
-# require_relative 'player'
-# require_relative 'wallet'
 
-class Color_roulette
-  # attr_accessor :colorbets
-    def initialize 
-      # @colorbets = ["red", "black"]
-      ritmenu
+class ColorRoulette 
+  attr_accessor :player
+  
+    def initialize(player) 
+       @player = player 
+      ritmenu  
     end 
 
     def ritmenu 
-      @colorbets = ["red", "black"]
       puts "Welcome to Roulette! You can bet on red or black. Please make a selection."
       ritcolor = gets.chomp
-      ritbetting
+      @colorbets = ["red", "black"]
+      betting 
       case ritcolor 
       when "red"
         if ritcolor == @colorbets.sample 
         puts "YOU WIN"
+        @player.win(@bet)
         else 
           puts "you lose"
+          @player.lose(@bet)
         end
         ritplayagain
       when "black"
          if @colorbets.sample == ritcolor 
         puts "YOU WIN"
+        @player.win(@bet)
         else 
           puts "you lose"
+          @player.lose(@bet)
         end
         ritplayagain
       else 
@@ -38,11 +38,6 @@ class Color_roulette
 
     end 
 
-    def ritbetting
-      puts "How much would you like to bet?"
-      ritbetamt = gets.to_i
-    end
-
     def ritplayagain
       puts "Would you like to play again? Y/N"
         ritpickagain = gets.strip
@@ -50,12 +45,23 @@ class Color_roulette
        when "Y"
           ritmenu
        when "N"
-          exit
+        restart = Casino.new(@player) 
+        restart.main_menu 
        else
         "Invalid selection, select Y/N"
         ritplayagain
        end
  
     end 
+    def betting
+      puts "You currently have #{@player.wallet.money}"
+      puts "How much would you like to bet?"
+      @bet = gets.to_i 
+      if @bet > @player.wallet.money   
+        puts "YOU BROKE BRO TRY AGAIN"
+        betting 
+      end 
+      return @player.wallet.money 
+      return @bet 
+    end 
 end 
-Color_roulette.new 
